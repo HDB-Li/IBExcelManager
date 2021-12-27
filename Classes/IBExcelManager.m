@@ -21,8 +21,6 @@
     NSString *primExchCol = nil;
     NSString *currencyCol = nil;
     NSString *actionCol = nil;
-    NSString *quantityCol = nil;
-    NSString *orderTypeCol = nil;
     
     for (NSInteger i = 0; i <= 1; i++) {
         for (NSString *col in columns) {
@@ -36,17 +34,13 @@
                 primExchCol = col;
             } else if ([[[sheet getCellWithColumn:col row:i error:nil] stringValue].lowercaseString isEqualToString:@"currency"]) {
                 currencyCol = col;
-            } else if ([[[sheet getCellWithColumn:col row:i error:nil] stringValue].lowercaseString isEqualToString:@"action"]) {
+            } else if ([[[sheet getCellWithColumn:col row:i error:nil] stringValue].lowercaseString isEqualToString:@"side"]) {
                 actionCol = col;
-            } else if ([[[sheet getCellWithColumn:col row:i error:nil] stringValue].lowercaseString isEqualToString:@"quantity"]) {
-                quantityCol = col;
-            } else if ([[[sheet getCellWithColumn:col row:i error:nil] stringValue].lowercaseString isEqualToString:@"order type"]) {
-                orderTypeCol = col;
             }
         }
     }
     
-    if (!symbolCol || !typeCol || !exchangeCol || !primExchCol || !currencyCol || !actionCol || !quantityCol || !orderTypeCol) {
+    if (!symbolCol || !typeCol || !exchangeCol || !primExchCol || !currencyCol || !actionCol) {
         return result;
     }
     
@@ -57,11 +51,16 @@
         NSString *primExch = [[sheet getCellWithColumn:primExchCol row:i error:nil] stringValue];
         NSString *currency = [[sheet getCellWithColumn:currencyCol row:i error:nil] stringValue];
         NSString *action = [[sheet getCellWithColumn:actionCol row:i error:nil] stringValue];
-        NSInteger quantity = [[[sheet getCellWithColumn:quantityCol row:i error:nil] cellDic][@"v"][@"text"] integerValue];
-        NSString *orderType = [[sheet getCellWithColumn:orderTypeCol row:i error:nil] stringValue];
+        if ([action isEqualToString:@"LONG"]) {
+            action = @"BUY";
+        } else if ([action isEqualToString:@"SHORT"]) {
+            action = @"SELL";
+        } else {
+            action = nil;
+        }
         
-        if (symbol.length && type.length && exchange.length && primExch.length && currency.length && action.length && quantity && orderType.length) {
-            IBExcelModel *model = [[IBExcelModel alloc] initWithSymbol:symbol secType:type exchange:exchange primaryExchange:primExch currency:currency action:action totalQuantity:quantity orderType:orderType];
+        if (symbol.length && type.length && exchange.length && primExch.length && currency.length && action.length) {
+            IBExcelModel *model = [[IBExcelModel alloc] initWithSymbol:symbol secType:type exchange:exchange primaryExchange:primExch currency:currency action:action];
             [result addObject:model];
         }
     }

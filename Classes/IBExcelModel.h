@@ -10,17 +10,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *primaryExchange;
 @property (nonatomic, copy) NSString *currency;
 @property (nonatomic, copy) NSString *action;
-@property (nonatomic, assign) NSInteger totalQuantity;
-@property (nonatomic, copy) NSString *orderType;
 
 - (instancetype)initWithSymbol:(NSString *)symbol
                        secType:(NSString *)secType
                       exchange:(NSString *)exchange
                primaryExchange:(NSString *)primaryExchange
                       currency:(NSString *)currency
-                        action:(NSString *)action
-                 totalQuantity:(NSInteger)totalQuantity
-                     orderType:(NSString *)orderType;
+                        action:(NSString *)action;
 
 @end
 
