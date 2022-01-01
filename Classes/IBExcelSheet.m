@@ -96,27 +96,29 @@
                     if(oneRowDic && [oneRowDic isKindOfClass:[NSDictionary class]])
                     {
                         NSArray *c = [oneRowDic objectForKey:@"c"];
-                        
-                        for(NSInteger j = 0 ; j < c.count ; j ++)
-                        {
-                            NSDictionary *cellDic = [c objectAtIndex:j];
-                            
-                            IBExcelCell *cell = [[IBExcelCell alloc]init];
-                            
-                            cell.cellDic = cellDic;
-                            
-                            if(cell.indexAnalysisSuccess && (sharedStringsArray.count > cell.stringValueIndex))
+                        if ([c isKindOfClass:[NSArray class]]) {
+                            for(NSInteger j = 0 ; j < c.count ; j ++)
                             {
-                                cell.stringValue = [sharedStringsArray objectAtIndex:cell.stringValueIndex];
-                            }
-                            
+                                NSDictionary *cellDic = [c objectAtIndex:j];
+                                
+                                IBExcelCell *cell = [[IBExcelCell alloc]init];
+                                
+                                cell.cellDic = cellDic;
+                                
+                                if(cell.indexAnalysisSuccess && (sharedStringsArray.count > cell.stringValueIndex))
+                                {
+                                    cell.stringValue = [sharedStringsArray objectAtIndex:cell.stringValueIndex];
+                                }
+                                
 
-                            NSString *mergeCellColumAndRowStr = [self getMergeCellColumAndRowStrWithCell:cell mergeCellInfoArray:mergeCellInfoArray];
-                            
-                            cell.mergeCellColumAndRowStr = mergeCellColumAndRowStr;
-                            
-                            [oneSheetAllCellArray addObject:cell];
+                                NSString *mergeCellColumAndRowStr = [self getMergeCellColumAndRowStrWithCell:cell mergeCellInfoArray:mergeCellInfoArray];
+                                
+                                cell.mergeCellColumAndRowStr = mergeCellColumAndRowStr;
+                                
+                                [oneSheetAllCellArray addObject:cell];
+                            }
                         }
+                        
                     }
                 }
             }
