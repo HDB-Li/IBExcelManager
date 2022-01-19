@@ -5,7 +5,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface IBExcelManager : NSObject
 
-- (NSArray *)analysisExcelFile:(NSURL *)fileUrl maxCount:(NSInteger)maxCount;
+- (NSArray *)analysisExcelFile:(NSURL *)fileUrl sheetName:(NSString *)sheetName maxCount:(NSInteger)maxCount;
+- (NSDictionary <NSString *, NSString *>*)analysisGroupExcelFile:(NSURL *)fileUrl sheetName:(NSString *)sheetName maxCount:(NSInteger)maxCount;
 
 @end
 

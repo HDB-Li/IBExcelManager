@@ -9,6 +9,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *exchange;
 @property (nonatomic, copy) NSString *primaryExchange;
 @property (nonatomic, copy) NSString *currency;
+@property (nonatomic, copy) NSString *cap;
 @property (nonatomic, copy) NSString *action;
 
 - (instancetype)initWithSymbol:(NSString *)symbol
@@ -16,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
                       exchange:(NSString *)exchange
                primaryExchange:(NSString *)primaryExchange
                       currency:(NSString *)currency
+                           cap:(NSString *)cap
                         action:(NSString *)action;
 
 @end
